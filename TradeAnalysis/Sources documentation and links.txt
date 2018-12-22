@@ -1,0 +1,6 @@
+Sources documentation and links
+
+blpapi-python
+https://github.com/msitt/blpapi-python
+I had to manually download this, open python in that location, run setup, and then copy/paste the resulting blpapi and blpapiegg-info files into the python script folder 
+I also had to add the blpapi c++ folder (bin subfolder bc has the executables) to PATH
