@@ -24,10 +24,11 @@
     <Compile Include="harness.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="module1.py">
+    <Compile Include="scratchwork.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TradeAnalysis.py" />
+    <Compile Include="universe_selection.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
