@@ -23,6 +23,6 @@ asset_combos = generate_combinations([bullish_tickers, bearish_tickers])
 #this one returns sorted list
 t = historical_spread_analysis(data, asset_combos)
 
-for i in range(100):
+for i in range(len(t)):
     print(tickers[tickers['Ticker']==t[i][0][0]]['Des'].values, "/", tickers[tickers['Ticker']==t[i][0][1]]['Des'].values, ': ', t[i][-1])
 
