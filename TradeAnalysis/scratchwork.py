@@ -19,3 +19,5 @@ df = df.ix[:,~df.columns.duplicated()]
 valid = tickers[tickers['Ticker'].isin(df.columns)]
 valid.shape
 valid.to_csv(ticker_list)
+
+

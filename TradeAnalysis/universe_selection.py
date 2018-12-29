@@ -10,8 +10,8 @@ tickers = pd.read_csv(ticker_list)
 usd_tickers=tickers[tickers['Country']=='USD']
 
 data_file = folder + 'ticker_master_data.csv'
-#con = pdblp.BCon(debug=True, port=8194, timeout=5000)
-#con.start()
+con = pdblp.BCon(debug=True, port=8194, timeout=5000)
+con.start()
 
 # pulls tickers from csv file
 def get_tickers(filepath):
@@ -26,14 +26,27 @@ def get_tickers(filepath):
 ## TODO: when added the direction value to each, take into account for creating combinations
 #TODO: add logic for param selection
 ##TODO: API integration
-def generate_universe(bullish=None, bearish=None, tickers=None, datafile=None, params=None):
-    bull_tickers = tickers[tickers['Country']==bullish]['Ticker'].values
-    bear_tickers = tickers[tickers['Country']==bearish]['Ticker'].values
 
-    if not datafile==None:
-        data = pd.read_csv(datafile, index_col=0)[np.append(bull_tickers,bear_tickers)]
-    else:
-        #this is where the logic for the api could be integrated
-        pass
 
-    return data, list(product(bull_tickers, bear_tickers))
+#slice full tickers based on param keyword inputs. tickers should be DF and params should be strings. inflation is boolean
+# front_back takes one of ['front', 'back']. short_long takes one of ['short', 'long']
+#return df of tickers satisfying the params, and list of complement tickers, that is the tickers from every other country satifsying the same params
+def select_securities(tickers, country=None, front_back=None, short_long=None, inflation=False):
+    assert country!=None
+    assert len(tickers)>0
+
+    country_tickers = tickers[(tickers['Country']==country) & (tickers['front_back']==front_back) & (tickers['short_long']==short_long) & (tickers['inflation']==inflation)]
+    complement_tickers = tickers[(tickers['Country']!=country) & (tickers['front_back']==front_back) & (tickers['short_long']==short_long) & (tickers['inflation']==inflation)]
+
+    return country_tickers, complement_tickers
+
+
+#function to generate combinations of tickers for evaluation. if only one set of tickers is input, then we compare against 
+#all other countries using same selection params. if there are two, we just run against each other 
+#input is list of dataframes holding tickers in question generated from select_securities function
+#for ease, we will say we buy the first, sell the second i.e. ticker_lists=[bullish tickers, bearish tickers]
+def generate_combinations(ticker_lists):
+    assert len(ticker_lists)>0
+    return list(product(ticker_lists[0]['Ticker'].values, ticker_lists[1]['Ticker'].values))
+
+

@@ -24,6 +24,12 @@
     <Compile Include="harness.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="helper_functions.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="optimization_functions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="scratchwork.py">
       <SubType>Code</SubType>
     </Compile>
